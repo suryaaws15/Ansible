@@ -1,46 +1,46 @@
 ---
-name : install jenkins
-hosts : localhost
-become : yes
-become_user : root
+- name : install jenkins
+  hosts : localhost
+  become : yes
+  become_user : root
 
 
-tasks:
- - name: Update all packages to their latest version
-   apt:
-    name: "*"
-    state: latest
+  tasks:
+  - name: Update all packages to their latest version
+    apt:
+     name: "*"
+     state: latest
 
- - name: Add key for jenkins
-   ansible.builtin.uri:
-    url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-    dest: /usr/share/keyrings/jenkins-keyring.asc
+  - name: Add key for jenkins
+    ansible.builtin.uri:
+     url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+     dest: /usr/share/keyrings/jenkins-keyring.asc
 
- - name: Add Jenkins-Repository
-   ansible.builtin.apt_repository:
-    repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \  https://pkg.jenkins.io/debian binary/
-    state: present
-    filename: jenkins.list
+  - name: Add Jenkins-Repository
+    ansible.builtin.apt_repository:
+     repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \  https://pkg.jenkins.io/debian binary/
+     state: present
+     filename: jenkins.list
 
- - name: Update all packages to their latest version
-   apt:
-    name: "*"
-    state: latest
+  - name: Update all packages to their latest version
+    apt:
+     name: "*"
+     state: latest
 
- - name: install fontconfig
-   shell: apt install fontconfig -y
+  - name: install fontconfig
+    shell: apt install fontconfig -y
 
 
- - name: install java-17
-   shell: apt install fontconfig openjdk-17-jre -y
+  - name: install java-17
+    shell: apt install fontconfig openjdk-17-jre -y
 
- - name: Install Jenkins
-   ansible.builtin.apt:
-    name: jenkins
-    state: present
+  - name: Install Jenkins
+    ansible.builtin.apt:
+     name: jenkins
+     state: present
 
- - name: start jenkins service
-   ansible.builtin.systemd_service:
-    state: started
-    name: jenkins
-    enabled: yes
+  - name: start jenkins service
+    ansible.builtin.systemd_service:
+     state: started
+     name: jenkins
+     enabled: yes
