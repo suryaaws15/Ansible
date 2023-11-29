@@ -16,8 +16,8 @@ tasks:
     url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
     dest: /usr/share/keyrings/jenkins-keyring.asc
 
- -  name: Add Jenkins-Repository
-    ansible.builtin.apt_repository:
+ - name: Add Jenkins-Repository
+   ansible.builtin.apt_repository:
     repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \  https://pkg.jenkins.io/debian binary/
     state: present
     filename: jenkins.list
